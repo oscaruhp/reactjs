@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+
+    <script src="http://fb.me/react-with-addons-0.12.0.js"></script>
+    <script src="http://fb.me/JSXTransformer-0.12.0.js"></script>
+
+  </head>
+  
+  <body>
+    <div id="ejemplo"></div>
+    <script type="text/jsx">
+      var Saludo= React.createClass({
+          render:function(){
+            return <div>&iexcl; Hola {this.props.nombre} ! </div>;
+          }
+
+      });
+      React.render(<Saludo nombre="Develoteca.com"/>,document.body);
+    </script>
+  </body>
+</html>
