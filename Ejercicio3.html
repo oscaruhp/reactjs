@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+
+    <script src="http://fb.me/react-with-addons-0.12.0.js"></script>
+    <script src="http://fb.me/JSXTransformer-0.12.0.js"></script>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+  </head>
+  
+  <body>
+    
+   <div id="ejemplo"></div>
+   
+   <div class="container">
+        <div id="formulario"></div>
+   </div>
+
+    <script type="text/jsx">
+    
+    var Componente = React.createClass({
+          render:function(){
+            return (<h1>Curso de {this.props.descripcion}</h1>);
+          }
+     });
+    var ComponenteFormulario = React.createClass({
+        render : function() {
+          return React.DOM.div({
+                    className:'form-group',
+                    children : [
+                                
+                      React.DOM.label({ 
+                        htmlFor:'exampleInputEmail1', 
+                        children:this.props.etiqueta,
+                        name:"Lbl"+this.props.nombre
+                      }),
+                      React.DOM.input({ 
+                        type:"text",
+                        className:"form-control",
+                        name:"txt"+this.props.nombre,
+                        placeholder:this.props.etiqueta
+                        })
+                    ]
+                  });
+
+        }
+    });
+
+   
+    React.renderComponent(<Componente descripcion="React.js en Develoteca"/>,document.getElementById('ejemplo'));
+
+    React.renderComponent(<ComponenteFormulario nombre="nombre" etiqueta="Escribe el nombre completo:"/>, document.getElementById('formulario'));
+ 
+    </script>
+
+  </body>
+</html>
