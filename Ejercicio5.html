@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+   <head>
+
+    <script src="http://fb.me/react-with-addons-0.12.0.js"></script>
+    <script src="http://fb.me/JSXTransformer-0.12.0.js"></script>
+    <link rel="stylesheet" href="bootstrap.min.css">
+  </head>
+  <body>
+    
+   
+    <div class="container">
+          <div class="row">
+		            <div class="col-md-3"></div>
+			           <div id="Tareas" class="col-md-6"></div>
+			           <div class="col-md-3"></div>
+		      </div>
+    </div>
+    
+	<script type="text/jsx">
+	
+	
+    var ListaTareas = React.createClass({
+	      CrearElementosDeLista: function(itemText) {
+        return <li className="ui-state-default" > <div className="checkbox">
+                            <label>
+                                <button className="btn btn-danger" onClick={this.props.EstadoBorrar.bind(this, itemText)} >x</button> {itemText}</label>
+                        </div></li>;
+	     },
+        render: function() {
+        return <ul id="sortable" className="list-unstyled">{this.props.ElementosLista.map(this.CrearElementosDeLista)}</ul>;
+      }
+    });
+
+    var AplicacionTareas = React.createClass({
+            getInitialState: function() { return {ElementosLista: ["Elemento 1","Elemento 2"], text: ''};
+          },
+           
+           EstadoBorrar: function(ElementoAborrar, e) {
+               var LosElementosLista = this.state.ElementosLista;
+               var indice = LosElementosLista.indexOf(ElementoAborrar);
+               LosElementosLista.splice(indice, 1);
+               this.setState({ElementosLista: LosElementosLista});
+            },
+
+            EstadoCambio: function(e) {
+              this.setState({text: e.target.value});
+            },
+
+            EstadoSubmit: function(e) {
+              e.preventDefault();
+              var nextElementosLista = this.state.ElementosLista.concat([this.state.text]);
+              var nextText = '';
+              this.setState({ElementosLista: nextElementosLista, text: nextText});
+            },
+
+            render: function() {
+            return (
+                <div>
+                    <h3>Lista de Tareas</h3>
+        
+                  <form onSubmit={this.EstadoSubmit} >
+                    <input className="form-control" placeholder="Agregar a la lista"  onChange={this.EstadoCambio} value={this.state.text} />
+                    <br/><button className="btn btn-success btn-block " >{'Agregar a lista #' + (this.state.ElementosLista.length )}</button>
+                  </form>
+		              <hr/>
+		              <ListaTareas ElementosLista={this.state.ElementosLista}  
+                      EstadoBorrar={this.EstadoBorrar} />
+                </div>
+                    );
+            }
+    });
+    React.render(<AplicacionTareas />, document.getElementById('Tareas'));
+  </script>
+  </body>
+</html>
