@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+   <head>
+    
+    <script src="http://fb.me/react-with-addons-0.12.0.js"></script>
+    <script src="http://fb.me/JSXTransformer-0.12.0.js"></script>
+    <link rel="stylesheet" href="bootstrap.min.css">
+	  <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+
+  </head>
+  <body>
+    
+   
+    <div class="container">
+          <div class="row">
+		            <div class="col-md-3"></div>
+			           <div id="Tareas" class="col-md-6"></div>
+			           <div class="col-md-3"></div>
+		      </div>
+    </div>
+    
+	<script type="text/jsx">
+        
+       var Esperar= {color:'black'};
+       var Listo={color:'red'};
+
+
+		    var ListaTareas = React.createClass({
+        CrearElementosDeLista: function(itemText) {
+        return <li className="ui-state-default" > <div className="checkbox">
+                           <label  style={itemText.estatus==0?Listo:Esperar}>
+                                <button  className="btn btn-danger" onClick={this.props.EstadoBorrar.bind(this, itemText)} >x</button> {itemText.titulo} </label>
+                        </div></li>;
+       },
+        render: function() {
+        return <ul id="sortable" className="list-unstyled">{this.props.ElementosLista.map(this.CrearElementosDeLista)}</ul>;
+      }
+    });
+
+    var AplicacionTareas = React.createClass({
+          getInitialState: function() { return {ElementosLista: ["Elemento 1","Elemento 2"], text: ''};
+          },
+          componentWillMount:function(){
+            this.actualizarInformacion();
+          },
+          actualizarInformacion:function(){
+            $.get("Datos/index.php", function(resultado) {
+              this.setState({ElementosLista:resultado});
+            }.bind(this));
+
+          },
+          EstadoBorrar: function(ElementoAborrar, e) {
+                $.ajax({
+                url:"Datos/index.php",
+                dataType:'json',
+                type:'POST',
+                data:{id:ElementoAborrar.id,accion:2},
+                success:function(data){ }.bind(this)
+
+              });
+           this.actualizarInformacion();
+          },
+          EstadoCambio: function(e) {
+              this.setState({text: e.target.value});
+          },
+
+          EstadoSubmit: function(e) {
+              $.ajax({
+                url:"Datos/index.php",
+                dataType:'json',
+                type:'POST',
+                data:{titulo:this.state.text,accion:1},
+                success:function(data){ }.bind(this)
+
+              });
+
+            this.actualizarInformacion();
+          },
+
+          render: function() {
+            return (
+                <div>
+                    <h3>Lista de Tareas</h3>
+        
+                  <form onSubmit={this.EstadoSubmit} >
+                    <input className="form-control" placeholder="Agregar a la lista"  onChange={this.EstadoCambio} value={this.state.text} />
+                    <br/>
+                    
+                    <input type="button" onClick={this.EstadoSubmit}  className="btn btn-success btn-block " value={'Agregar a lista #' + (this.state.ElementosLista.length )} />
+
+                  </form>
+                  <hr/>
+                  <ListaTareas ElementosLista={this.state.ElementosLista}  
+                      EstadoBorrar={this.EstadoBorrar} />
+                </div>
+                    );
+          }
+    });
+
+    React.render(<AplicacionTareas />, document.getElementById('Tareas'));
+    
+  </script>
+  </body>
+</html>

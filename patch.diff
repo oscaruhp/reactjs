@@ -1,0 +1,43 @@
+From 95ba3d1c15405a9b964f03bb1767bd2562efc987 Mon Sep 17 00:00:00 2001
+From: oscaruh <dimit28@gmail.com>
+Date: Thu, 9 Apr 2015 23:24:11 -0500
+Subject: [PATCH] Ejercicio1
+
+---
+ Ejercicio1.html | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
+ create mode 100644 Ejercicio1.html
+
+diff --git a/Ejercicio1.html b/Ejercicio1.html
+new file mode 100644
+index 0000000..add3356
+--- /dev/null
++++ b/Ejercicio1.html
+@@ -0,0 +1,23 @@
++<!DOCTYPE html>
++<html>
++  
++  <head>
++
++    <script src="http://fb.me/react-with-addons-0.12.0.js"></script>
++    <script src="http://fb.me/JSXTransformer-0.12.0.js"></script>
++
++  </head>
++  
++  <body>
++    <div id="ejemplo"></div>
++    <script type="text/jsx">
++      var Saludo= React.createClass({
++          render:function(){
++            return <div>&iexcl; Hola {this.props.nombre} ! </div>;
++          }
++
++      });
++      React.render(<Saludo nombre="Develoteca.com"/>,document.body);
++    </script>
++  </body>
++</html>
+\ No newline at end of file
+-- 
+1.8.3.msysgit.0
+

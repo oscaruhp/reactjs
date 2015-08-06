@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+
+    <script src="http://fb.me/react-with-addons-0.12.0.js"></script>
+    <script src="http://fb.me/JSXTransformer-0.12.0.js"></script>
+
+  </head>
+  
+  <body>
+    
+    <div id="ejemplo"></div>
+    <div id="ejemplo2"></div>
+    <div id="ejemplo3"></div>
+    <div id="ejemplo4"></div>
+
+    <script type="text/jsx">
+
+     var Componente = React.createClass({
+          render:function(){
+            return (<h1>T&iacute;tulo</h1>);
+          }
+     });
+     var Componente2 = React.createClass({
+          render:function(){
+            return (<div>Segundo Componente</div>);
+          }
+    });
+     var Componente3 = React.createClass({
+        render:function(){
+          return React.DOM.div({children:[React.DOM.span({children:"Ejemplo 3"}),React.DOM.span({children:"El mismo ejemplo 3"})]})
+        }
+
+     });
+    var Componente4= React.createClass({
+      render:function(){
+        return React.DOM.div({
+            children:"Este es el ejemplo 4"
+
+        })
+
+
+      }
+
+    })
+  React.renderComponent(<Componente/>,document.getElementById('ejemplo'));
+  React.renderComponent(<Componente2/>,document.getElementById('ejemplo2'));
+  React.renderComponent(Componente3({}),document.getElementById('ejemplo3'));
+  React.renderComponent(Componente4({}),document.getElementById('ejemplo4'));
+
+  </script>
+  </body>
+</html>
